@@ -1,29 +1,65 @@
-type User = {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  address: {
-    street: string;
-    suite: string;
-    city: string;
-    zipcode: string;
-    geo: {
-      lat: string;
-      lng: string;
-    };
-  };
-  phone: string;
-  website: string;
-  company: {
-    name: string;
-    catchPhrase: string;
-    bs: string;
-  };
+// Step 1: Pickup and Destination Details
+
+type CustomLocation = {
+  lat: number;
+  lng: number;
+  address: string;
+  coordinates?: [number, number]; // Optional to avoid strict errors
 };
-type Post = {
-  userId: number;
-  id: number;
+
+export type StepOneFormData = {
+  pickupDate: Date | null;
+  pickupTime: string;
+  persons: string;
+  pickupLocation: CustomLocation | null;
+  destinationLocation: CustomLocation | null;
+  activeMode: "source" | "destination";
+};
+
+// Step 2: Car Selection
+export type StepTwoFormData = {
+  imgUrl: string;
   title: string;
-  body: string;
+  desc: string;
+  price: string;
+  carSlug: string;
 };
+
+// Step 3: Contact Information
+export type StepThreeFormData = {
+  firstname: string;
+  lastname: string;
+  email: string;
+  phoneNumber: string;
+  comment: string;
+};
+
+export type CarOption = {
+  imgUrl: string;
+  title: string;
+  desc: string;
+  price: string;
+  slug: string;
+};
+
+// Step 4: Order Summary
+export type StepFourFormData = StepOneFormData &
+  StepTwoFormData &
+  StepThreeFormData;
+
+// Define the Order type
+interface Order {
+  imgUrl: string;
+  title: string;
+  desc: string;
+  price: number;
+  pickupDate: Date;
+  pickupTime: string;
+  persons: number;
+  pickupLocation: JsonValue; // Use JsonValue instead of CustomLocation
+  destinationLocation: JsonValue; // Use JsonValue instead of CustomLocation
+  userEmail: string;
+  carSlug: string;
+  comment: string;
+  phoneNumber: string;
+}

@@ -1,17 +1,23 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import AboutUs from "@/components/about/About";
+import BackTotopBtn from "@/components/back-to-top/BackTotopBtn";
+import Cta from "@/components/cta/Cta";
+import HeroSection from "@/components/hero/HeroSection";
+import Objectives from "@/components/objectives/Objectives";
+import Services from "@/components/services/Services";
+
 import React from "react";
 
-const Home = () => {
+const HomePage = async () => {
   return (
-    <div>
-      <h1>Home page</h1>
-      <p>
-        <Link href={"/"}>User</Link>
-      </p>
-      <Button>Hello</Button>
-    </div>
+    <main className="relative">
+      <HeroSection />
+      <AboutUs />
+      <Services />
+      <Cta />
+      <Objectives />
+      <BackTotopBtn />
+    </main>
   );
 };
 
-export default Home;
+export default HomePage;
