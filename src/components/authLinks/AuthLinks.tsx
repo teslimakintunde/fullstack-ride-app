@@ -32,7 +32,7 @@ const AuthLinks: React.FC<AuthLinksProps> = ({ session }) => {
           </Link>
         ) : (
           <div className="flex flex-row justify-center items-center space-x-5">
-            {session?.user?.isAdmin && <Link href={"/admin"}>Admin</Link>}
+            {session?.user?.isAdmin && <Link href={"/admin-page"}>Admin</Link>}
             <button
               className="hidden md:block px-4 py-2  text-white bg-red-600 rounded-md transition"
               onClick={() => signOut()}
