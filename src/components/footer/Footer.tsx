@@ -22,12 +22,12 @@ const Footer = () => {
             <Link href={"/"}>
               <span className="text-3xl font-bold">RideEase</span>
             </Link>
-            <div className="text-gray-600">
+            <div className="text-gray-600 font-roboto">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Et quo
               sapiente ipsum pariatur delectus quasi!
             </div>
             {/* phone and email */}
-            <div className="flex flex-col gap-y-4 font-semibold">
+            <div className="flex flex-col gap-y-4 font-semibold font-roboto">
               <div className="flex items-center gap-x-[10px]">
                 <FaPhone />
                 <div className="font-medium">(123)456-789</div>
@@ -39,7 +39,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex-1 flex flex-col xl:items-center">
+          <div className="flex-1 font-roboto flex flex-col xl:items-center">
             <div>
               <h3 className="h3 font-bold mb-8">Company</h3>
               <ul className="flex flex-col gap-y-4 font-semibold">
@@ -61,7 +61,7 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-          <div className="flex-1">
+          <div className="flex-1 font-roboto">
             <h3 className="h3 font-bold mb-8">Working Hours</h3>
             <div className="flex flex-col gap-y-4">
               <div className="flex gap-x-2">
@@ -82,7 +82,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="flex-1">
+          <div className="flex-1 font-roboto">
             <h3 className="h3 font-bold mb-8">Newsletter</h3>
             <div className="mb-9 text-gray-600">
               Lorem ipsum dolor sit amet consectetur, adipisicing elit.

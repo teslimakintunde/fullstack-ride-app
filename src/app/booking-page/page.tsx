@@ -69,7 +69,7 @@ const BookingPageContent = () => {
   }, [status, router]);
 
   return (
-    <div className="lg:pt-20 border">
+    <div className="lg:pt-20 border font-roboto">
       <div className="hidden lg:flex justify-center items-center lg:mt-10  ml-24">
         <div className="grid grid-cols-4 gap-5 mt-5 items-center w-[75%]">
           {steps.map((item, index) => (

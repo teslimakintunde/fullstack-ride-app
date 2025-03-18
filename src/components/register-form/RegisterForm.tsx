@@ -45,7 +45,7 @@ const RegisterForm = () => {
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="px-3 py-3 w-full my-5 border"
+            className="px-3 py-3 w-full my-5 border font-roboto"
           />
           <input
             type="password"
@@ -53,7 +53,7 @@ const RegisterForm = () => {
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="px-3 py-3 w-full border"
+            className="px-3 py-3 w-full border font-roboto"
           />
           <input
             type="password"
@@ -61,7 +61,7 @@ const RegisterForm = () => {
             name="passwordRepeat"
             value={passwordRepeat}
             onChange={(e) => setPasswordRepeat(e.target.value)}
-            className="px-3 py-3 w-full my-5 border"
+            className="px-3 py-3 w-full my-5 border font-roboto"
           />
           {error && <p className="text-red-500">{error}</p>}
           <button

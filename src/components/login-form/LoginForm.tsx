@@ -62,7 +62,10 @@ const LoginForm = () => {
   };
   return (
     <section className="md:w-[60%] w-full p-3 md:p-0">
-      <form onSubmit={handleLogin} className="flex flex-col gap-5 w-full">
+      <form
+        onSubmit={handleLogin}
+        className="flex flex-col gap-5 w-full font-roboto"
+      >
         <input
           type="email"
           placeholder="example.com"

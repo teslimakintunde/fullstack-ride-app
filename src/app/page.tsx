@@ -9,7 +9,7 @@ import React from "react";
 
 const HomePage = async () => {
   return (
-    <main className="relative">
+    <main className="relative font-roboto">
       <HeroSection />
       <AboutUs />
       <Services />

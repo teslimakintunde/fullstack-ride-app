@@ -6,7 +6,7 @@ import { fadeIn } from "../../../variant";
 
 const HeroSection = () => {
   return (
-    <section className="container py-10 ">
+    <section className="container py-10 font-roboto ">
       <div className="grid grid-cols-1 lg:grid-cols-2  items-center justify-center pt-[13vh]">
         <div className="flex-1">
           <motion.h1

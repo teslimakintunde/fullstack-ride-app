@@ -87,8 +87,13 @@ const AdminPage = () => {
   return (
     <section>
       <div className="container mt-[100px]">
-        <h1 className="text-4xl font-medium mb-9 ">Upload Your Car Details</h1>
-        <form onSubmit={handleSubmit} className="flex flex-col max-w-[60%]">
+        <h1 className="lg:text-4xl text-[20px] md:text-[36px] font-medium mb-9 ">
+          Upload Your Car Details
+        </h1>
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col md:max-w-[60%] font-roboto"
+        >
           <select
             name=""
             id=""
