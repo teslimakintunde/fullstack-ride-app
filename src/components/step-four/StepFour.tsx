@@ -157,7 +157,7 @@ const StepFour: React.FC<StepFourProps> = ({ formData }) => {
             </div>
 
             <div className="flex gap-10 p-2">
-              <span className="font-bold">Comment:</span>
+              <span className="font-bold">Brief Description:</span>
               <span>{formData.comment}</span>
             </div>
           </div>
