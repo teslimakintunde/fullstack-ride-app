@@ -1,9 +1,17 @@
 "use client";
 
-import ImageUpload from "@/components/image-upload/ImageUpload";
+// import ImageUpload from "@/components/image-upload/ImageUpload";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import dynamic from "next/dynamic";
+// Dynamic import for ImageUpload, disabled on server-side
+const ImageUpload = dynamic(
+  () => import("@/components/image-upload/ImageUpload"),
+  {
+    ssr: false,
+  }
+);
 
 const AdminPage = () => {
   const [image, setImage] = useState("");
