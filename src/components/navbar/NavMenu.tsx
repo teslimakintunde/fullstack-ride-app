@@ -35,7 +35,7 @@ const NavMenu: React.FC<NavMenuProps> = ({ session }) => {
   return (
     <nav className="flex flex-row justify-between items-center">
       <Link href={"/"}>
-        <span className="text-3xl font-bold">CarRental</span>
+        <span className="text-3xl font-bold">RideEase</span>
       </Link>
       <ul className="hidden md:flex flex-row gap-x-5 items-center">
         <Link href={"/"}>

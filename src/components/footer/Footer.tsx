@@ -20,7 +20,7 @@ const Footer = () => {
         >
           <div className="flex flex-col flex-1 gap-y-8">
             <Link href={"/"}>
-              <span className="text-3xl font-bold">CarRental</span>
+              <span className="text-3xl font-bold">RideEase</span>
             </Link>
             <div className="text-gray-600">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Et quo
