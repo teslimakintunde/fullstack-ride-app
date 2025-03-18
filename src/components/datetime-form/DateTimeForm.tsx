@@ -8,6 +8,15 @@ import { cn } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Label } from "../ui/label";
 
+// Define the module shape exported by calendar.tsx
+// interface CalendarModule {
+//   default: React.ComponentType<DayPickerProps>;
+// }
+
+// const Calendar = dynamic(() => import("../ui/calendar") as Promise<CalendarModule>, {
+//   ssr: false,
+// });
+
 type DateTimeFormProps = {
   id: string;
   label: string;

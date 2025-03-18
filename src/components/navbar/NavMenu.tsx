@@ -41,7 +41,7 @@ const NavMenu: React.FC<NavMenuProps> = ({ session }) => {
         <Link href={"/"}>
           <li>Home</li>
         </Link>
-        <Link href={"/booking"}>
+        <Link href={"/booking-page"}>
           <li>Booking</li>
         </Link>
         <Link href={"/"}>

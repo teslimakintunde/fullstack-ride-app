@@ -3,11 +3,16 @@ import React, { useEffect, useState } from "react";
 
 import toast from "react-hot-toast";
 import { StepOneFormData, CustomLocation } from "../../../types";
-import SharedMap from "../share-map/SharedMap";
+// import SharedMap from "../share-map/SharedMap";
 import CitySelect from "../city-select/CitySelect";
 import { pickupTime } from "@/constants/appdata";
 import SelectForm from "../select-form/SelectForm";
 import DateTimeForm from "../datetime-form/DateTimeForm";
+import dynamic from "next/dynamic";
+
+const SharedMap = dynamic(() => import("../share-map/SharedMap"), {
+  ssr: false,
+});
 
 interface StepOneProps {
   formData: StepOneFormData;
