@@ -49,7 +49,7 @@ const AdminPage = () => {
     try {
       const BASE_URL =
         process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
-      const res = await fetch(`${BASE_URL}/api/admin`, {
+      const res = await fetch(`${BASE_URL}/api/isAcd dmin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
