@@ -13,6 +13,7 @@ import {
 } from "../../../types";
 import Insights from "@/components/insights/Insights";
 import Contact from "@/components/contact/Contact";
+import { addDays } from "date-fns";
 
 const BookingPageContent = () => {
   const { status } = useSession();
@@ -21,9 +22,14 @@ const BookingPageContent = () => {
   const [current, setCurrent] = useState<number>(
     parseInt(searchParams.get("index") || "1", 10)
   );
+
+  const [isDateRangeAvailable, setIsDateRangeAvailable] =
+    useState<boolean>(true); // New state
+
   // Form state using useState instead of useForm
   const [stepOneForm, setStepOneForm] = useState<StepOneFormData>({
-    pickupDate: null,
+    startDate: null, // Updated from pickupDate
+    endDate: null, // New field
     pickupTime: "",
     persons: "",
     pickupLocation: null, // Stores selected pickup location
@@ -106,7 +112,11 @@ const BookingPageContent = () => {
       </div>
 
       {current === 1 && (
-        <StepOne formData={stepOneForm} setFormData={setStepOneForm} />
+        <StepOne
+          formData={stepOneForm}
+          setFormData={setStepOneForm}
+          setIsDateRangeAvailable={setIsDateRangeAvailable}
+        />
       )}
       {current === 2 && (
         <Insights
@@ -122,9 +132,12 @@ const BookingPageContent = () => {
         <StepFour
           formData={{
             ...stepOneForm,
-            pickupDate: stepOneForm.pickupDate
-              ? stepOneForm.pickupDate.toISOString() // Convert to ISO string
-              : new Date().toISOString(), // Fallback to current date
+            startDate: stepOneForm.startDate
+              ? stepOneForm.startDate.toISOString()
+              : new Date().toISOString(),
+            endDate: stepOneForm.endDate
+              ? stepOneForm.endDate.toISOString()
+              : addDays(new Date(), 1).toISOString(),
             ...stepTwoForm,
             ...stepThreeForm,
           }}
@@ -142,7 +155,7 @@ const BookingPageContent = () => {
         <button
           onClick={() => setCurrent(current + 1)} // Go to the next step
           className="disabled:opacity-70 disabled:cursor-not-allowed  bg-black text-white px-10 py-3 rounded-full"
-          disabled={current === 4}
+          disabled={current === 4 || (current === 1 && !isDateRangeAvailable)}
         >
           Next
         </button>

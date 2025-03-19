@@ -8,7 +8,9 @@ type CustomLocation = {
 };
 
 export type StepOneFormData = {
-  pickupDate: Date | null;
+  // pickupDate: Date | null;
+  startDate: Date | null;
+  endDate: Date | null;
   pickupTime: string;
   persons: string;
   pickupLocation: CustomLocation | null;
@@ -53,7 +55,8 @@ interface Order {
   title: string;
   desc: string;
   price: number;
-  pickupDate: Date;
+  startDate: Date; // Updated from pickupDate
+  endDate: Date; // New field
   pickupTime: string;
   persons: number;
   pickupLocation: JsonValue; // Use JsonValue instead of CustomLocation

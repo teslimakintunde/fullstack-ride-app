@@ -59,6 +59,60 @@ import { Order } from "../../types";
 //     console.log("✅ Nodemailer is ready to send emails!");
 //   }
 // });
+
+// export const sendOrderConfirmationEmail = async (
+//   email: string,
+//   order: Order
+// ): Promise<void> => {
+//   try {
+//     const transporter = nodemailer.createTransport({
+//       service: "Gmail",
+//       auth: {
+//         user: process.env.EMAIL_USER,
+//         pass: process.env.EMAIL_PASS,
+//       },
+//     });
+
+//     const mailOptions = {
+//       from: `"Ride Booking" <${process.env.EMAIL_USER}>`,
+//       to: email,
+//       subject: "Order Confirmation ✅",
+//       html: `
+//         <h2>Order Confirmation</h2>
+//         <p>Hi, your order has been successfully placed! 🎉</p>
+//         <h3>Order Details:</h3>
+//         <p><strong>Pickup Date:</strong> ${new Date(
+//           order.pickupDate
+//         ).toLocaleDateString()}</p>
+//         <p><strong>Pickup Time:</strong> ${order.pickupTime}</p>
+//         <p><strong>Pickup Location:</strong> ${
+//           order.pickupLocation?.address || "Unknown"
+//         }</p>
+//         <p><strong>Destination:</strong> ${
+//           order.destinationLocation?.address || "Unknown"
+//         }</p>
+//         <p><strong>Price:</strong> $${order.price}</p>
+//         <p>Thank you for choosing our service! 🚗💨</p>
+//       `,
+//     };
+
+//     const info = await transporter.sendMail(mailOptions);
+//     console.log("✅ Order confirmation email sent:", info.response);
+//   } catch (error) {
+//     console.error("❌ Error sending email:", error);
+//   }
+// };
+
+// Define the Order type to match your updated Prisma schema
+// interface Order {
+//   startDate: Date; // Updated from pickupDate
+//   endDate: Date; // New field
+//   pickupTime: string;
+//   pickupLocation: { address: string } | null;
+//   destinationLocation: { address: string } | null;
+//   price: number;
+// }
+
 export const sendOrderConfirmationEmail = async (
   email: string,
   order: Order
@@ -80,8 +134,11 @@ export const sendOrderConfirmationEmail = async (
         <h2>Order Confirmation</h2>
         <p>Hi, your order has been successfully placed! 🎉</p>
         <h3>Order Details:</h3>
-        <p><strong>Pickup Date:</strong> ${new Date(
-          order.pickupDate
+        <p><strong>Start Date:</strong> ${new Date(
+          order.startDate
+        ).toLocaleDateString()}</p>
+        <p><strong>End Date:</strong> ${new Date(
+          order.endDate
         ).toLocaleDateString()}</p>
         <p><strong>Pickup Time:</strong> ${order.pickupTime}</p>
         <p><strong>Pickup Location:</strong> ${

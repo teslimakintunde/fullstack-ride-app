@@ -6,7 +6,8 @@ import { CheckCircleIcon } from "lucide-react";
 
 // Define the type for the order object
 type Order = {
-  pickupDate: string; // ISO string
+  startDate: string; // ISO string
+  endDate: string; // ISO string
   pickupTime: string;
   persons: number;
   pickupLocation: { address: string } | null;
@@ -35,7 +36,7 @@ const Success: React.FC = () => {
   }, [router]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-4">
+    <div className="flex flex-col items-center justify-center min-h-screen px-4 font-roboto">
       <div className="text-black shadow-lg rounded-lg p-8 text-center w-full max-w-md">
         <CheckCircleIcon className="text-green-500 w-16 h-16 mx-auto mb-4" />
         <h1 className="text-2xl font-bold text-gray-800">
@@ -50,18 +51,18 @@ const Success: React.FC = () => {
         {order && (
           <div className="bg-green-500 p-4 rounded-lg mt-4 text-left text-white">
             <h2 className="text-lg font-semibold mb-2">Order Summary</h2>
-            <p className="">
-              <strong>Pickup Date:</strong>{" "}
-              {new Date(order.pickupDate).toLocaleDateString()}
+            <p>
+              <strong>Start Date:</strong>{" "}
+              {new Date(order.startDate).toLocaleDateString()}
             </p>
-            {/* <p>
-              <strong>Pickup Time:</strong> {order.pickupTime}
-            </p> */}
+            <p>
+              <strong>End Date:</strong>{" "}
+              {new Date(order.endDate).toLocaleDateString()}
+            </p>
             <p>
               <strong>Pickup Time:</strong>{" "}
               {order.pickupTime ? order.pickupTime : "N/A"}
             </p>
-
             <p>
               <strong>Passenger(s):</strong> {order.persons}
             </p>

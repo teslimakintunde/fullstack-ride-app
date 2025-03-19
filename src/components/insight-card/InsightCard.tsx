@@ -56,7 +56,7 @@ const InsightCard: React.FC<InsightCardProps> = ({
                   price,
                   carSlug,
                 }));
-                router.replace(`/booking?index=2&option=${index}`, {
+                router.replace(`/booking-page?index=2&option=${index}`, {
                   scroll: false,
                 });
               }}

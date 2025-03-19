@@ -136,12 +136,25 @@ export async function POST(req: Request) {
     const body = await req.json();
     console.log("Received Order Data:", body);
 
-    // Validate required fields
-    if (!body.userEmail || !body.title || !body.pickupDate) {
+    // // Validate required fields
+    // if (!body.userEmail || !body.title || !body.pickupDate) {
+    //   console.error("Missing Fields:", {
+    //     userEmail: body.userEmail,
+    //     title: body.title,
+    //     pickupDate: body.pickupDate,
+    //   });
+    //   return NextResponse.json(
+    //     { error: "Missing required fields" },
+    //     { status: 400 }
+    //   );
+    // }
+    // Validate required fields (updated to startDate and endDate)
+    if (!body.userEmail || !body.title || !body.startDate || !body.endDate) {
       console.error("Missing Fields:", {
         userEmail: body.userEmail,
         title: body.title,
-        pickupDate: body.pickupDate,
+        startDate: body.startDate,
+        endDate: body.endDate,
       });
       return NextResponse.json(
         { error: "Missing required fields" },
@@ -155,7 +168,8 @@ export async function POST(req: Request) {
       title: body.title,
       desc: body.desc || "",
       price: Number(body.price) || 0,
-      pickupDate: new Date(body.pickupDate),
+      startDate: new Date(body.startDate),
+      endDate: new Date(body.endDate),
       pickupTime: body.pickupTime || "",
       persons: Number(body.persons) || 1,
       pickupLocation: body.pickupLocation || { address: "Unknown" }, // Keep as JSON
@@ -206,7 +220,7 @@ export const GET = async () => {
   try {
     const orderHistory = await prisma.order.findMany({
       where: { userEmail: session?.user.email },
-      orderBy: { pickupDate: "desc" },
+      orderBy: { startDate: "desc" },
     });
     return NextResponse.json(orderHistory, { status: 200 });
   } catch (error) {

@@ -7,8 +7,9 @@ import { StepOneFormData, CustomLocation } from "../../../types";
 import CitySelect from "../city-select/CitySelect";
 import { pickupTime } from "@/constants/appdata";
 import SelectForm from "../select-form/SelectForm";
-import DateTimeForm from "../datetime-form/DateTimeForm";
+// import DateTimeForm from "../datetime-form/DateTimeForm";
 import dynamic from "next/dynamic";
+import DateSelection from "../date-selection/DateSelection";
 
 const SharedMap = dynamic(() => import("../share-map/SharedMap"), {
   ssr: false,
@@ -17,8 +18,13 @@ const SharedMap = dynamic(() => import("../share-map/SharedMap"), {
 interface StepOneProps {
   formData: StepOneFormData;
   setFormData: React.Dispatch<React.SetStateAction<StepOneFormData>>;
+  setIsDateRangeAvailable?: (isAvailable: boolean) => void; // Optional callback to parent
 }
-const StepOne: React.FC<StepOneProps> = ({ formData, setFormData }) => {
+const StepOne: React.FC<StepOneProps> = ({
+  formData,
+  setFormData,
+  setIsDateRangeAvailable,
+}) => {
   const [error, setError] = useState<string | null>(null);
 
   const handleLocationSelect = (location: CustomLocation) => {
@@ -31,13 +37,79 @@ const StepOne: React.FC<StepOneProps> = ({ formData, setFormData }) => {
     }));
   };
 
-  const checkDateAvailability = async (date: string) => {
+  // const checkDateAvailability = async (date: string) => {
+  //   try {
+  //     const formattedDate = new Date(date).toISOString(); // Converts to "2025-03-04T00:00:00.000Z"
+  //     const BASE_URL =
+  //       process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+  //     const res = await fetch(
+  //       `${BASE_URL}/api/bookings/check?pickupDate=${formattedDate}`
+  //     );
+
+  //     if (!res.ok) {
+  //       throw new Error("Failed to fetch availability");
+  //     }
+
+  //     const data = await res.json();
+  //     if (data.booked) {
+  //       setError("This date is already booked. Please select another date.");
+  //       toast.success(
+  //         "This date is already booked. Please select another date."
+  //       );
+  //     } else {
+  //       setError(null);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error checking date:", error);
+  //     setError("Could not check date availability.");
+  //   }
+  // };
+
+  // Run when pickupDate changes
+  // useEffect(() => {
+  //   if (formData.pickupDate) {
+  //     // checkDateAvailability(formData.pickupDate);
+  //     checkDateAvailability(formData.pickupDate.toISOString());
+  //   }
+  // }, [formData.pickupDate]);
+  // const checkDateRangeAvailability = async (startDate: Date, endDate: Date) => {
+  //   try {
+  //     const BASE_URL =
+  //       process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+  //     const res = await fetch(
+  //       `${BASE_URL}/api/bookings/check?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
+  //     );
+
+  //     if (!res.ok) {
+  //       throw new Error("Failed to fetch availability");
+  //     }
+
+  //     const data = await res.json();
+  //     if (data.booked) {
+  //       setError("This date range is already booked. Please select another.");
+  //       toast.error(
+  //         "This date range is already booked. Please select another."
+  //       );
+  //     } else {
+  //       setError(null);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error checking date range:", error);
+  //     setError("Could not check date availability.");
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (formData.startDate && formData.endDate) {
+  //     checkDateRangeAvailability(formData.startDate, formData.endDate);
+  //   }
+  // }, [formData.startDate, formData.endDate]);
+  const checkDateRangeAvailability = async (startDate: Date, endDate: Date) => {
     try {
-      const formattedDate = new Date(date).toISOString(); // Converts to "2025-03-04T00:00:00.000Z"
       const BASE_URL =
         process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
       const res = await fetch(
-        `${BASE_URL}/api/bookings/check?pickupDate=${formattedDate}`
+        `${BASE_URL}/api/bookings/check?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
       );
 
       if (!res.ok) {
@@ -46,31 +118,36 @@ const StepOne: React.FC<StepOneProps> = ({ formData, setFormData }) => {
 
       const data = await res.json();
       if (data.booked) {
-        setError("This date is already booked. Please select another date.");
-        toast.success(
-          "This date is already booked. Please select another date."
+        setError("This date range is already booked. Please select another.");
+        toast.error(
+          "This date range is already booked. Please select another."
         );
       } else {
         setError(null);
       }
+
+      if (setIsDateRangeAvailable) {
+        setIsDateRangeAvailable(!data.booked);
+      }
     } catch (error) {
-      console.error("Error checking date:", error);
+      console.error("Error checking date range:", error);
       setError("Could not check date availability.");
+      if (setIsDateRangeAvailable) {
+        setIsDateRangeAvailable(false);
+      }
     }
   };
 
-  // Run when pickupDate changes
   useEffect(() => {
-    if (formData.pickupDate) {
-      // checkDateAvailability(formData.pickupDate);
-      checkDateAvailability(formData.pickupDate.toISOString());
+    if (formData.startDate && formData.endDate) {
+      checkDateRangeAvailability(formData.startDate, formData.endDate);
     }
-  }, [formData.pickupDate]);
+  }, [formData.startDate, formData.endDate]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mx-10 md:mx-[10%] my-10">
       <div className="flex flex-col space-y-7">
-        <DateTimeForm
+        {/* <DateTimeForm
           id="pickupDate"
           label="Pickup Date"
           value={formData.pickupDate ? new Date(formData.pickupDate) : null}
@@ -80,7 +157,8 @@ const StepOne: React.FC<StepOneProps> = ({ formData, setFormData }) => {
               pickupDate: date || new Date(), // Ensure it's a Date object
             }))
           }
-        />
+        /> */}
+        <DateSelection formData={formData} setFormData={setFormData} />
 
         {error && <p className="text-red-500">{error}</p>}
 

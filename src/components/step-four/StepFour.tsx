@@ -7,6 +7,7 @@ import React from "react";
 
 import toast from "react-hot-toast";
 import DisplayImage from "../display-image/DisplayImage";
+import { addDays } from "date-fns";
 
 // Define the Location type
 type Location = {
@@ -21,7 +22,8 @@ type FormData = {
   title: string;
   desc: string;
   price: string | number;
-  pickupDate: string | string;
+  startDate: string; // Updated from pickupDate
+  endDate: string; // New field
   pickupTime: string;
   persons: string | number;
   pickupLocation: Location | null;
@@ -56,9 +58,12 @@ const StepFour: React.FC<StepFourProps> = ({ formData }) => {
       title: formData.title || "Unknown",
       desc: formData.desc || "",
       price: Number(formData.price) || 0,
-      pickupDate: formData.pickupDate
-        ? new Date(formData.pickupDate).toISOString()
+      startDate: formData.startDate
+        ? new Date(formData.startDate).toISOString()
         : new Date().toISOString(),
+      endDate: formData.endDate
+        ? new Date(formData.endDate).toISOString()
+        : addDays(new Date(), 1).toISOString(),
       pickupTime: formData.pickupTime || "",
       persons: Number(formData.persons) || 1,
       pickupLocation: formData.pickupLocation || {
@@ -134,11 +139,18 @@ const StepFour: React.FC<StepFourProps> = ({ formData }) => {
               <span>{formData.email}</span>
             </div>
             <div className="flex gap-10 p-2">
-              <span className="font-bold">Pick Up Date:</span>
-
+              <span className="font-bold">Start Date:</span>
               <span>
-                {formData.pickupDate
-                  ? new Date(formData.pickupDate).toLocaleDateString()
+                {formData.startDate
+                  ? new Date(formData.startDate).toLocaleDateString()
+                  : "N/A"}
+              </span>
+            </div>
+            <div className="flex gap-10 p-2">
+              <span className="font-bold">End Date:</span>
+              <span>
+                {formData.endDate
+                  ? new Date(formData.endDate).toLocaleDateString()
                   : "N/A"}
               </span>
             </div>

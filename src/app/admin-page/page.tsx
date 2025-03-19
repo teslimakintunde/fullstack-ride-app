@@ -49,7 +49,7 @@ const AdminPage = () => {
     try {
       const BASE_URL =
         process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
-      const res = await fetch(`${BASE_URL}/api/isAcd dmin`, {
+      const res = await fetch(`${BASE_URL}/api/isAdmin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,7 +78,7 @@ const AdminPage = () => {
         setpassenger("");
         setPrice("");
         // Optional: Redirect or refresh data
-        router.push("/admin");
+        router.push("/admin-page");
       }
     } catch (e) {
       console.log(e);

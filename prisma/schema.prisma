@@ -129,7 +129,8 @@ model Order {
   desc        String
   price       Float
   phoneNumber String
-  pickupDate  DateTime
+  startDate   DateTime // New field for start date
+  endDate     DateTime // New field for end date
   pickupTime  String
   persons     Int
   comment     String
