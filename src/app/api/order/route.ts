@@ -37,7 +37,7 @@ export async function POST(req: Request) {
       persons: Number(body.persons) || 1,
       pickupLocation: body.pickupLocation || { address: "Unknown" }, // Keep as JSON
       destinationLocation: body.destinationLocation || { address: "Unknown" }, // Keep as JSON
-      userEmail: session?.user?.email || body.email,
+      userEmail: body.email || session?.user?.email,
       carSlug: body.carSlug || "default-slug",
       comment: body.comment || "",
       phoneNumber: body.phoneNumber || "",
