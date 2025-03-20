@@ -80,19 +80,8 @@ const StepOne: React.FC<StepOneProps> = ({
   }, [formData.startDate, formData.endDate]);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mx-10 md:mx-[10%] my-10">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mx-10 md:mx-[10%] my-10 mt-32">
       <div className="flex flex-col space-y-7">
-        {/* <DateTimeForm
-          id="pickupDate"
-          label="Pickup Date"
-          value={formData.pickupDate ? new Date(formData.pickupDate) : null}
-          onChange={(date: Date | null) =>
-            setFormData((prev) => ({
-              ...prev,
-              pickupDate: date || new Date(), // Ensure it's a Date object
-            }))
-          }
-        /> */}
         <DateSelection
           formData={formData}
           setFormData={setFormData}
