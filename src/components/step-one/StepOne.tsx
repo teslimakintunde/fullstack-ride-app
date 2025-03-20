@@ -19,11 +19,13 @@ interface StepOneProps {
   formData: StepOneFormData;
   setFormData: React.Dispatch<React.SetStateAction<StepOneFormData>>;
   setIsDateRangeAvailable?: (isAvailable: boolean) => void; // Optional callback to parent
+  reset?: boolean; // Add reset prop
 }
 const StepOne: React.FC<StepOneProps> = ({
   formData,
   setFormData,
   setIsDateRangeAvailable,
+  reset,
 }) => {
   const [error, setError] = useState<string | null>(null);
 
@@ -37,73 +39,6 @@ const StepOne: React.FC<StepOneProps> = ({
     }));
   };
 
-  // const checkDateAvailability = async (date: string) => {
-  //   try {
-  //     const formattedDate = new Date(date).toISOString(); // Converts to "2025-03-04T00:00:00.000Z"
-  //     const BASE_URL =
-  //       process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
-  //     const res = await fetch(
-  //       `${BASE_URL}/api/bookings/check?pickupDate=${formattedDate}`
-  //     );
-
-  //     if (!res.ok) {
-  //       throw new Error("Failed to fetch availability");
-  //     }
-
-  //     const data = await res.json();
-  //     if (data.booked) {
-  //       setError("This date is already booked. Please select another date.");
-  //       toast.success(
-  //         "This date is already booked. Please select another date."
-  //       );
-  //     } else {
-  //       setError(null);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error checking date:", error);
-  //     setError("Could not check date availability.");
-  //   }
-  // };
-
-  // Run when pickupDate changes
-  // useEffect(() => {
-  //   if (formData.pickupDate) {
-  //     // checkDateAvailability(formData.pickupDate);
-  //     checkDateAvailability(formData.pickupDate.toISOString());
-  //   }
-  // }, [formData.pickupDate]);
-  // const checkDateRangeAvailability = async (startDate: Date, endDate: Date) => {
-  //   try {
-  //     const BASE_URL =
-  //       process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
-  //     const res = await fetch(
-  //       `${BASE_URL}/api/bookings/check?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
-  //     );
-
-  //     if (!res.ok) {
-  //       throw new Error("Failed to fetch availability");
-  //     }
-
-  //     const data = await res.json();
-  //     if (data.booked) {
-  //       setError("This date range is already booked. Please select another.");
-  //       toast.error(
-  //         "This date range is already booked. Please select another."
-  //       );
-  //     } else {
-  //       setError(null);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error checking date range:", error);
-  //     setError("Could not check date availability.");
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (formData.startDate && formData.endDate) {
-  //     checkDateRangeAvailability(formData.startDate, formData.endDate);
-  //   }
-  // }, [formData.startDate, formData.endDate]);
   const checkDateRangeAvailability = async (startDate: Date, endDate: Date) => {
     try {
       const BASE_URL =
@@ -158,7 +93,11 @@ const StepOne: React.FC<StepOneProps> = ({
             }))
           }
         /> */}
-        <DateSelection formData={formData} setFormData={setFormData} />
+        <DateSelection
+          formData={formData}
+          setFormData={setFormData}
+          reset={reset}
+        />
 
         {error && <p className="text-red-500">{error}</p>}
 

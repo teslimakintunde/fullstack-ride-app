@@ -39,9 +39,10 @@ type FormData = {
 // Define the props for StepFour
 interface StepFourProps {
   formData: FormData;
+  onOrderComplete?: () => void; // New callback prop
 }
 
-const StepFour: React.FC<StepFourProps> = ({ formData }) => {
+const StepFour: React.FC<StepFourProps> = ({ formData, onOrderComplete }) => {
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -102,6 +103,9 @@ const StepFour: React.FC<StepFourProps> = ({ formData }) => {
       toast.success("Order submitted successfully!");
 
       localStorage.setItem("recentOrder", JSON.stringify(responseData));
+      if (onOrderComplete) {
+        onOrderComplete(); // Trigger reset
+      }
       router.push("/success");
     } catch (error) {
       console.error("Submit Error:", error);

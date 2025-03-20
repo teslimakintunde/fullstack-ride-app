@@ -26,6 +26,8 @@ const BookingPageContent = () => {
   const [isDateRangeAvailable, setIsDateRangeAvailable] =
     useState<boolean>(true); // New state
 
+  const [resetForm, setResetForm] = useState<boolean>(false); // New state for reset
+
   // Form state using useState instead of useForm
   const [stepOneForm, setStepOneForm] = useState<StepOneFormData>({
     startDate: null, // Updated from pickupDate
@@ -74,6 +76,13 @@ const BookingPageContent = () => {
     }
   }, [status, router]);
 
+  // Reset form when order is completed (e.g., after StepFour navigates to /success)
+  useEffect(() => {
+    if (current === 1 && resetForm) {
+      setResetForm(false); // Reset the trigger
+    }
+  }, [current, resetForm]);
+
   return (
     <div className="lg:pt-20 border font-roboto">
       <div className="hidden lg:flex justify-center items-center lg:mt-10  ml-24">
@@ -116,6 +125,7 @@ const BookingPageContent = () => {
           formData={stepOneForm}
           setFormData={setStepOneForm}
           setIsDateRangeAvailable={setIsDateRangeAvailable}
+          reset={resetForm} // Pass reset prop
         />
       )}
       {current === 2 && (
@@ -141,6 +151,7 @@ const BookingPageContent = () => {
             ...stepTwoForm,
             ...stepThreeForm,
           }}
+          onOrderComplete={() => setResetForm(true)} // Callback after order completion
         />
       )}
 

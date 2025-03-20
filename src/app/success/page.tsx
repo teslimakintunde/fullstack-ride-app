@@ -51,31 +51,32 @@ const Success: React.FC = () => {
         {order && (
           <div className="bg-green-500 p-4 rounded-lg mt-4 text-left text-white">
             <h2 className="text-lg font-semibold mb-2">Order Summary</h2>
-            <p>
-              <strong>Start Date:</strong>{" "}
+            <p className="text-white">
+              <strong className="text-black">Start Date:</strong>{" "}
               {new Date(order.startDate).toLocaleDateString()}
             </p>
-            <p>
-              <strong>End Date:</strong>{" "}
+            <p className="text-white">
+              <strong className="text-black">End Date:</strong>{" "}
               {new Date(order.endDate).toLocaleDateString()}
             </p>
-            <p>
-              <strong>Pickup Time:</strong>{" "}
+            <p className="text-white">
+              <strong className="text-black">Pickup Time:</strong>{" "}
               {order.pickupTime ? order.pickupTime : "N/A"}
             </p>
-            <p>
-              <strong>Passenger(s):</strong> {order.persons}
+            <p className="text-white">
+              <strong className="text-black">Passenger(s):</strong>{" "}
+              {order.persons}
             </p>
-            <p>
-              <strong>Pickup Location:</strong>{" "}
+            <p className="text-white">
+              <strong className="text-black">Pickup Location:</strong>{" "}
               {order.pickupLocation?.address || "Unknown"}
             </p>
-            <p>
-              <strong>Destination:</strong>{" "}
+            <p className="text-white">
+              <strong className="text-black">Destination:</strong>{" "}
               {order.destinationLocation?.address || "Unknown"}
             </p>
-            <p>
-              <strong>Price:</strong> ${order.price}
+            <p className="text-white">
+              <strong className="text-black">Price:</strong> ${order.price}
             </p>
           </div>
         )}
